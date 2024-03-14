@@ -28,9 +28,9 @@ public class ItemController {
 	//商品一覧表示
 	@GetMapping
 	public String index(Model model) {
-		//データの疎通確認
+		
 		List<Item> items = this.itemService.findAll();
-		//コンソールよりListの中身を確認する。
+		
 		model.addAttribute("item", items);
 		return "item/index";
 	}
