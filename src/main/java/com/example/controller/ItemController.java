@@ -31,7 +31,7 @@ public class ItemController {
 		
 		List<Item> items = this.itemService.findAll();
 		
-		model.addAttribute("item", items);
+		model.addAttribute("items", items);
 		return "item/index";
 	}
 	
