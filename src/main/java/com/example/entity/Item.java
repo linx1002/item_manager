@@ -45,6 +45,8 @@ public class Item {
 		return this.price;
 	}
 	
-	
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
 
 }

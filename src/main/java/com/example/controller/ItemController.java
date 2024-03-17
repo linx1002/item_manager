@@ -44,6 +44,7 @@ public class ItemController {
 	//商品登録実行
 	@PostMapping("toroku")
 	public String toroku(ItemForm itemForm) {
+		this.itemService.save(itemForm);
 		return "redirect:/item";
 	}
 	
@@ -51,18 +52,25 @@ public class ItemController {
 	@GetMapping("henshu/{id}")
 	public String henshuPage(@PathVariable("id") Integer id, Model model
 	,@ModelAttribute("itemForm") ItemForm itemForm) {
+		Item item = this.itemService.findById(id);
+		
+		itemForm.setName(item.getName());
+		itemForm.setPrice(item.getPrice());
+		model.addAttribute("id", id);
 		return "item/henshuPage";
 	}
 	
 	//商品編集の実行
-	@PostMapping("henshu{id}")
-	public String henshu(@PathVariable("id") Integer id,@ModelAttribute("itemForm") ItemForm itemForm) {
+	@PostMapping("henshu/{id}")
+	public String henshu(@PathVariable("id") Integer id, ItemForm itemForm) {
+		this.itemService.update(id, itemForm);
 		return "redirect:/item";
 	}
 	
 	//商品削除の実行
 	@PostMapping("sakujo/{id}")
 	public String sakujo(@PathVariable("id") Integer id) {
+		this.itemService.delete(id);
 		return "redirect:/item";
 	}
 	
