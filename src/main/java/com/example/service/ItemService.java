@@ -13,9 +13,6 @@ import com.example.repository.ItemRepository;
 
 @Service
 public class ItemService {
-	public static void main(String[] args) {
-		LocalDateTime ldt = LocalDateTime.now();
-	}
 	
 	private final ItemRepository itemRepository;
 	

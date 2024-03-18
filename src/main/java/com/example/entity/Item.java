@@ -33,7 +33,7 @@ public class Item {
 		return this.deletedAt;
 	}
 	
-	public void setDeleteAt(LocalDateTime deletedAt) {
+	public void setDeletedAt(LocalDateTime deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 	
