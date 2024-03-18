@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +50,14 @@ public Item update(Integer id, ItemForm itemForm) {
 	}
 
 //削除
-public void delete(Integer id) {
-	this.itemRepository.deleteById(id);
+public Item delete(Integer id) {
+	Item item = this.findById(id);
+	
+	item.setDeletedAt(LocalDateTime.now());
+	return this.itemRepository.save(item);
+	}
+
+public List<Item> findByDeletedAtIsNull() {
+	return this.itemRepository.findByDeletedAtIsNull();
 	}
 }
