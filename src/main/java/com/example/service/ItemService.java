@@ -1,7 +1,6 @@
 package com.example.service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +13,9 @@ import com.example.repository.ItemRepository;
 
 @Service
 public class ItemService {
+	public static void main(String[] args) {
+		LocalDateTime ldt = LocalDateTime.now();
+	}
 	
 	private final ItemRepository itemRepository;
 	
