@@ -38,7 +38,7 @@ public class Item {
 	@JoinColumn(name = "category_id", insertable = false, updatable = false)
 	private Category category;
 	
-	public Category category() {
+	public Category getCategory() {
 		return this.category;
 	}
 	

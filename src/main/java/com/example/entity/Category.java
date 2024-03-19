@@ -29,6 +29,10 @@ public class Category {
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Item> items;
 	
+	public List<Item> getItems() {
+        return this.items;
+    }
+	
 	public Integer getId() {
 		return this.id;
 	}
