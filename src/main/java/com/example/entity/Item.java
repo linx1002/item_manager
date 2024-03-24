@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "items")
+@Table(name = "ITEMS")
 public class Item {
 
 	@Id
@@ -37,6 +37,17 @@ public class Item {
 	@ManyToOne
 	@JoinColumn(name = "category_Id", insertable = false, updatable = false )
 	private Category category;
+	
+	@Column(name = "STOCK")
+	private Integer stock;
+	
+	public Integer getStock() {
+		return this.stock;
+	}
+	
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
 	
 	public Category getCategory() {
 		return this.category;

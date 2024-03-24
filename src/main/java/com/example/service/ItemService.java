@@ -13,52 +13,69 @@ import com.example.repository.ItemRepository;
 
 @Service
 public class ItemService {
-	
+
 	private final ItemRepository itemRepository;
-	
+
 	@Autowired
 	public ItemService(ItemRepository itemRepository) {
 		this.itemRepository = itemRepository;
 	}
+
+	public List<Item> findAll() {
+		return this.itemRepository.findAll();
+	}
+
+	//登録
+	public Item save(ItemForm itemForm) {
+		Item item = new Item();
+		item.setName(itemForm.getName());
+		item.setPrice(itemForm.getPrice());
+		item.setCategoryId(itemForm.getCategoryId());
+		item.setStock(0);
+		return this.itemRepository.save(item);
+	}
+
+	//商品の更新ページ
+	public Item findById(Integer id) {
+		Optional<Item> optionalItem = this.itemRepository.findById(id);
+		Item item = optionalItem.get();
+		return item;
+	}
+
+	//データ更新
+	public Item update(Integer id, ItemForm itemForm) {
+		Item item = this.findById(id);
+		item.setName(itemForm.getName());
+		item.setPrice(itemForm.getPrice());
+		item.setCategoryId(itemForm.getCategoryId());
+		return this.itemRepository.save(item);
+	}
+
+	//削除
+	public Item delete(Integer id) {
+		Item item = this.findById(id);
+
+		item.setDeletedAt(LocalDateTime.now());
+		return this.itemRepository.save(item);
+	}
+
+	public List<Item> findByDeletedAtIsNull() {
+		return this.itemRepository.findByDeletedAtIsNull();
+	}
 	
-public List<Item> findAll() {
-	return this.itemRepository.findAll();
+	//入荷処理
+	public Item nyuka(Integer id, Integer inputValue) {
+		Item item = this.findById(id);
+		item.setStock(item.getStock() + inputValue);
+		return this.itemRepository.save(item);
 	}
-
-//登録
-public Item save(ItemForm itemForm) {
-    Item item = new Item();
-    item.setName(itemForm.getName());
-    item.setPrice(itemForm.getPrice());
-    item.setCategoryId(itemForm.getCategoryId());
-    return this.itemRepository.save(item);
-	}
-
-//商品の更新ページ
-public Item findById(Integer id) {
-	Optional<Item> optionalItem = this.itemRepository.findById(id);
-	Item item = optionalItem.get();
-	return item;
-    }
-
-//データ更新
-public Item update(Integer id, ItemForm itemForm) {
-	Item item = this.findById(id);
-	item.setName(itemForm.getName());
-	item.setPrice(itemForm.getPrice());
-	item.setCategoryId(itemForm.getCategoryId());
-	return this.itemRepository.save(item);
-	}
-
-//削除
-public Item delete(Integer id) {
-	Item item = this.findById(id);
 	
-	item.setDeletedAt(LocalDateTime.now());
-	return this.itemRepository.save(item);
-	}
-
-public List<Item> findByDeletedAtIsNull() {
-	return this.itemRepository.findByDeletedAtIsNull();
+	//出荷処理
+	public Item shukka(Integer id, Integer inputValue) {
+		Item item = this.findById(id);
+		if (inputValue <= item.getStock()) {
+			item.setStock(item.getStock() - inputValue);
+		}
+		return this.itemRepository.save(item);
 	}
 }
